@@ -1,6 +1,6 @@
 ---
 - name: Install and Configure Nginx on Ubuntu
-  hosts: worker-nodes
+  hosts: all
   become: yes
   tasks:
     - name: Update apt cache
@@ -38,11 +38,11 @@
           </body>
           </html>
 
-    - name: Ensure the default Nginx site is enabled
+    - name: Test Nginx configuration
       command: nginx -t
       register: nginx_test
-      failed_when: "'test is successful' not in nginx_test.stdout"
       changed_when: false
+      failed_when: "'test is successful' not in nginx_test.stderr"
 
     - name: Reload Nginx to apply changes
       systemd:

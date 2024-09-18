@@ -43,7 +43,15 @@ Description: Installs Docker and configures it on the target host.
 Setup Nginx
 
 Filename: setup_nginx.yml
+
 Description: Installs and configures Nginx on Ubuntu-based systems.
+
+Setup LAMP Stack
+
+Filename: deploy_lamp_stack.yaml
+
+Description: Installs and configures a LAMP stack (Linux, Apache, MySQL, PHP) on Ubuntu.
+
 
 📝 How to Contribute
 

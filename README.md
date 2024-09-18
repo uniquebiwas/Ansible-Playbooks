@@ -14,7 +14,7 @@ To run a specific playbook, follow these steps:
 
 Clone this repository:
 
-`git clone https://github.com/yourusername/Ansible-playbook.git`
+`git clone https://github.com/uniquebiwas/Ansible-Playbooks.git`
 
 `cd Ansible-playbook`
 

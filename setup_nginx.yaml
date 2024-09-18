@@ -1,0 +1,50 @@
+---
+- name: Install and Configure Nginx on Ubuntu
+  hosts: worker-nodes
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx service
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Ensure Nginx is running
+      command: systemctl status nginx
+      register: nginx_status
+      failed_when: "'active (running)' not in nginx_status.stdout"
+      changed_when: false
+
+    - name: Deploy a simple index.html file
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Welcome to Nginx</title>
+          </head>
+          <body>
+              <h1>Success! Nginx is installed and working.</h1>
+          </body>
+          </html>
+
+    - name: Ensure the default Nginx site is enabled
+      command: nginx -t
+      register: nginx_test
+      failed_when: "'test is successful' not in nginx_test.stdout"
+      changed_when: false
+
+    - name: Reload Nginx to apply changes
+      systemd:
+        name: nginx
+        state: reloaded

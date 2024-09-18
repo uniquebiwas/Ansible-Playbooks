@@ -30,9 +30,11 @@ Filename: docker-and-jenkins.yaml
 Description: Installs Docker and configures it on the target host.
 Setup Nginx
 
-Filename: setup_nginx.yml
+Filename: setup_nginx.yaml
 Description: Installs and configures Nginx on Ubuntu-based systems.
+
 📝 How to Contribute
+
 Feel free to submit pull requests with improvements, new playbooks, or fixes. Follow these steps:
 
 Fork the repository.

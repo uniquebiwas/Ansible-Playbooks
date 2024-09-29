@@ -52,6 +52,13 @@ Filename: deploy_lamp_stack.yaml
 
 Description: Installs and configures a LAMP stack (Linux, Apache, MySQL, PHP) on Ubuntu.
 
+Configure UFW Firewall
+
+Filename: configure_firewall.yaml
+
+Description: Configures firewall rules for  HTTP, HTTPS, and custom ports for jenkins using UFW.
+
+
 
 📝 How to Contribute
 

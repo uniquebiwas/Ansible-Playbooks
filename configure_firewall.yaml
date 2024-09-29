@@ -1,0 +1,33 @@
+---
+- name: Configure UFW Firewall on Linux
+  hosts: worker-nodes
+  become: yes  
+  vars:
+    firewall_rules:
+      - { port: 80, proto: 'tcp', action: 'allow' }      # Allow HTTP
+      - { port: 443, proto: 'tcp', action: 'allow' }     # Allow HTTPS
+      - { port: 8080, proto: 'tcp', action: 'allow' }    # Allow custom app port for jenkins
+
+  tasks:
+    - name: Ensure UFW is installed
+      ansible.builtin.apt:
+        name: ufw
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Allow OpenSSH through the firewall
+      ansible.builtin.ufw:
+        rule: allow
+        name: OpenSSH
+
+    - name: Apply firewall rules
+      ansible.builtin.ufw:
+        port: "{{ item.port }}"
+        proto: "{{ item.proto }}"
+        rule: "{{ item.action }}"
+      loop: "{{ firewall_rules }}"
+      
+    - name: Enable the firewall
+      ansible.builtin.ufw:
+        state: enabled
